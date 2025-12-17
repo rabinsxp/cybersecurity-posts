@@ -1,0 +1,33 @@
+---
+title: 'Case Study: The Tribhuvan University Service Commission Hack (2019)'
+date: '2019-07-12'
+tags: ['Case Study', 'Integrity', 'Web Security', 'Education']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+In 2019, the credibility of Nepal's oldest university, **Tribhuvan University (TU)**, was severely questioned. The website of the TU Service Commission was compromised, and there were allegations and evidence that the results of competitive exams for administrative positions had been manipulated.
+
+## Technical Analysis
+This incident centers on the **Integrity** pillar of the CIA Triad. Unlike a DDoS (Availability) or a Data Leak (Confidentiality), this attack altered data to benefit specific individuals.
+
+### The Attack Surface
+1.  **Weak Web Access Controls**: The backend system managing the results likely lacked sufficient logging and role-based access control (RBAC).
+2.  **SQL Injection (Suspected)**: Attackers or insiders potentially used SQL injection or direct database access to modify scores.
+3.  **Insider Threat**: Given the specific nature of the changes (targeting specific candidates), insider involvement or compromised admin credentials was highly probable.
+
+## Impact
+*   **Loss of Trust**: The integrity of the entire examination process was shattered.
+*   **Legal Action**: The Commission for the Investigation of Abuse of Authority (CIAA) launched investigations.
+*   **Operational Halt**: Recruitment processes were stalled for months.
+
+## Key Lessons
+1.  **Immutable Audit Logs**: Any change to a "Score" field in a database must write to a separate, append-only log file (or blockchain ledger) that cannot be altered by the database admin.
+2.  **Input Validation**: Strict validation on all data entry forms.
+3.  **Principle of Least Privilege**: Database write access should be restricted to the bare minimum number of applications/users.
+
+## References
+
+The Kathmandu Post. (2019). *Service commission chair, 9 others face corruption charges for manipulating exam scores*. [Online]. Available at: [https://kathmandupost.com/national/2019/07/04/service-commission-chair-9-others-face-corruption-charges-for-manipulating-exam-scores](https://kathmandupost.com/national/2019/07/04/service-commission-chair-9-others-face-corruption-charges-for-manipulating-exam-scores) [Accessed 11 February 2025].
+
+MyRepublica. (2019). *CIAA files case against 10 TU officials including commission chief*. [Online]. Available at: [https://myrepublica.nagariknetwork.com/news/ciaa-files-case-against-10-tu-officials-including-commission-chief/](https://myrepublica.nagariknetwork.com/news/ciaa-files-case-against-10-tu-officials-including-commission-chief/) [Accessed 11 February 2025].

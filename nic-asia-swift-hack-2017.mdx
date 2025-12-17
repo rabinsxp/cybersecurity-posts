@@ -1,0 +1,34 @@
+---
+title: 'Case Study: The NIC Asia Bank SWIFT Heist (2017)'
+date: '2017-10-22'
+tags: ['Case Study', 'Banking', 'SWIFT', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+During the Tihar festival in October 2017, undetected hackers initiated fraudulent transfers totaling approximately **NPR 460 Million (USD 4.4 Million)** from NIC Asia Bank. The attackers exploited the **SWIFT (Society for Worldwide Interbank Financial Telecommunication)** system, the backbone of international money transfers.
+
+Unlike the NEPS heist which targeted ATMs, this attack targeted the core inter-bank messaging system to move money to accounts in six different countries, including the US, UK, Japan, and Singapore.
+
+## Technical Analysis
+
+### The Attack Vector: Insider Threat or Phishing?
+While the granular forensic report remains confidential, the *modus operandi* mirrored the infamous **Bangladesh Bank Heist (2016)**.
+1.  **Compromise**: Attackers likely compromised a computer within the bank's SWIFT network, possibly via spear-phishing or a compromised insider device.
+2.  **Lateral Movement**: They gained access to valid SWIFT operator credentials.
+3.  **Transaction Initiation**: During a public holiday (Tihar), when monitoring is typically lax, they sent fraudulent payment instructions (MT103 messages).
+4.  **Covering Tracks**: Malware was likely used to delete transfer logs or manipulate printed confirmation reports to hide the theft until the money had cleared.
+
+## The Response
+The theft was detected relatively quickly. NIC Asia Bank, with the help of Nepal Rastra Bank and central banks in the destination countries, managed to freeze and recover most of the funds. However, the reputational damage was vital.
+
+## Key Lessons
+1.  **Segregation of Duties**: No single person (or compromised credential) should be able to initiate *and* approve a SWIFT transaction. Dual-control is mandatory.
+2.  **Network Isolation**: Research showed the SWIFT terminal might have been used for general browsing or email, which is a critical violation. SWIFT terminals must be completely isolated.
+3.  **Holiday Monitoring**: Attackers love holidays. Automated anomaly detection systems must operate 24/7/365, independent of human staff.
+
+## References
+
+The Kathmandu Post. (2017). *Central bank confirms cyber heist attempt at NIC Asia*. [Online]. Available at: [https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia](https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia) [Accessed 11 February 2025].
+
+Security Affairs. (2017). *Hackers attempt to steal money from Nepal’s NIC Asia Bank via SWIFT system*. [Online]. Available at: [https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html](https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html) [Accessed 11 February 2025].

@@ -1,0 +1,36 @@
+---
+title: 'Deep Dive: The 2019 NEPS ATM Heist'
+date: '2019-09-01'
+tags: ['Case Study', 'Banking', 'Malware', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+In one of the most sophisticated financial crimes in Nepal's history, Chinese threat actors managed to withdraw over **NPR 1.89 Crore (approx $168,000)** from ATMs across Kathmandu in a coordinated weekend heist. They targeted the **Nepal Electronic Payment Systems (NEPS)**, a shared switch used by multiple banks.
+
+## Technical Analysis
+This was not a brute-force attack on ATM machines (like jackpitting). It was a logical attack on the payment switch infrastructure.
+
+### The Attack Chain
+1.  **Initial Access**: Attackers likely gained a foothold in the NEPS network via phishing or an exposed service weeks prior to the heist.
+2.  **Lateral Movement**: They moved through the network to locate the Payment Switch Application servers.
+3.  **Malware Injection**: The attackers installed custom malware on the transaction switch.
+4.  **The "Proxy" Attack**:
+    *   When the mules inserted cards into the ATMs, the request went to the NEPS switch.
+    *   Typically, the switch forwards this to the Core Banking System (CBS) to check the balance.
+    *   The malware **intercepted** this request. Instead of asking the bank, the malware replied to the ATM: *"Approved. Dispense Cash."*
+    *   The bank's ledger was never touched during the transaction, which is why no alarms triggered immediately.
+
+## The Aftermath
+The heist was discovered only because a bank employee noticed money running out of ATMs unusually fast on a Saturday. Authorities arrested several money mules, but the architects of the malware remain at large.
+
+## Key Defenses
+1.  **Network Segmentation**: The payment switch should be in a high-security zone, air-gapped from the corporate email network to prevent phishing-based entry.
+2.  **File Integrity Monitoring (FIM)**: Changes to critical binaries on the switch server should have triggered an immediate alert.
+3.  **Behavioral Analytics**: A surge in cross-border or high-frequency transactions during off-hours (Saturday/Holiday) should trigger automated blocks.
+
+## References
+
+The Kathmandu Post. (2019). *Police arrest 5 Chinese nationals for hacking bank data and stealing millions*. [Online]. Available at: [https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions](https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions) [Accessed 11 February 2025].
+
+Al Jazeera. (2019). *Nepal detains 122 Chinese for suspected cybercrime and bank fraud*. [Online]. Available at: [https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud](https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud) [Accessed 11 February 2025].

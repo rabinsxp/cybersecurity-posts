@@ -1,0 +1,33 @@
+---
+title: 'Analysis: The GIDC DDoS Attack & Airport Shutdown'
+date: '2023-01-28'
+tags: ['Case Study', 'DDoS', 'Infrastructure', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+On January 28, 2023, Nepal witnessed a crippling cyberattack on its **Government Integrated Data Centre (GIDC)**. The attack took down hundreds of government websites, but most critically, it crashed the immigration server at **Tribhuvan International Airport (TIA)**.
+
+For hours, international flights were grounded, and passengers were stranded because immigration officials could not process visas or entry logs digitally.
+
+## Technical Analysis
+The attack was identified as a **Distributed Denial of Service (DDoS)** attack.
+
+### The Mechanism
+Attackers flooded the GIDC's bandwidth with an overwhelming volume of traffic, saturating the "pipe." The GIDC, at the time, lacked sufficient upstream bandwidth filtering or a dedicated **CDN (Content Delivery Network)** scrubbing service closer to the edge.
+
+When the central gateway at GIDC was choked, every service hosted behind it—from the Prime Minister's portal to the Airport's immigration database—went offline. This reveals a "Single Point of Failure" architecture.
+
+## Why It Mattered
+This wasn't just a website defacement; it was a denial of critical national infrastructure. It highlighted the fragility of Nepal's digital sovereignty.
+
+## Lessons for Enterprise
+1.  **DDoS Mitigation is Mandatory**: For critical infrastructure, ISP-level filtering is not enough. Dedicated scrubbing services (like Cloudflare Magic Transit or Akamai Prolexic) are required.
+2.  **Decouple Critical Systems**: The airport's immigration system should not share the exact same ingress pipe as public-facing static websites. Critical systems need dedicated, redundant connectivity.
+3.  **Failover Drills**: Physical redundant links existed but likely failed to switch over seamlessly under load. Regular drill testing is essential.
+
+## References
+
+The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites, disrupt international travel*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 11 February 2025].
+
+Onlinekhabar. (2023). *Government websites down: Officials suspect foreign cyber attack*. [Online]. Available at: [https://english.onlinekhabar.com/government-websites-down-cyber-attack.html](https://english.onlinekhabar.com/government-websites-down-cyber-attack.html) [Accessed 11 February 2025].

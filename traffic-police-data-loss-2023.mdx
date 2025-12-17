@@ -1,0 +1,35 @@
+---
+title: 'Analysis: The Traffic Police Data Catastrophe (2023)'
+date: '2023-05-23'
+tags: ['Case Study', 'Data Loss', 'Backups', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+In May 2023, the **Kathmandu Valley Traffic Police Office** made a shocking announcement: their Integrated Traffic Violation Record System (TVRS) had crashed, and the data was "irretrievable."
+
+The system, which tracked traffic fines and license suspensions, went dark. Drivers who had paid fines couldn't prove it, and pending fines seemingly vanished. It was later revealed that this wasn't a malicious hack, but a catastrophic failure during a server migration.
+
+## Technical Analysis
+This is a classic case of **Availability Failure** in the CIA Triad (Confidentiality, Integrity, *Availability*).
+
+### The Root Cause
+1.  **Improper Migration**: The IT contractor attempted to migrate the live database to a new server without a verified fallback.
+2.  **Backup Failure**: The most damning revelation was that the backups were either non-existent, corrupted, or stored on the same physical infrastructure as the primary server.
+3.  **Lack of Redundancy**: There was no "Hot Standby" or Disaster Recovery (DR) site to switch to when the primary database corrupted.
+
+## Impact
+*   **Operational Chaos**: Police officers had to revert to manual paper records.
+*   **Revenue Loss**: The government likely lost millions in uncollectable fines.
+*   **Data Integrity**: Even if recovered, trust in the accuracy of the records (who paid, who didn't) was permanently damaged.
+
+## Key Lessons
+1.  **The 3-2-1 Backup Rule**: Keep **3** copies of data, on **2** different media, with **1** copy offsite.
+2.  **Test Your Restores**: A backup is not a backup until you have successfully restored from it. "Schrödinger's Backup" exists in a state of both success and failure until verified.
+3.  **Never Migrate Production Live**: Always test migrations in a staging environment that mirrors production data.
+
+## References
+
+The Kathmandu Post. (2024). *Why 'server down' is a recurring problem in government offices*. [Online]. Available at: [https://kathmandupost.com/national/2024/01/01/why-server-down-is-a-recurring-problem-in-government-offices](https://kathmandupost.com/national/2024/01/01/why-server-down-is-a-recurring-problem-in-government-offices) [Accessed 11 February 2025].
+
+MyRepublica. (2023). *Service seekers hit hard as transport management server goes down*. [Online]. Available at: [https://myrepublica.nagariknetwork.com/news/service-seekers-hit-hard-as-transport-management-server-goes-down/](https://myrepublica.nagariknetwork.com/news/service-seekers-hit-hard-as-transport-management-server-goes-down/) [Accessed 11 February 2025].

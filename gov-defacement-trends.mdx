@@ -1,0 +1,37 @@
+---
+title: 'Trend Analysis: The Wave of .gov.np Defacements'
+date: '2017-06-15'
+tags: ['Case Study', 'Defacement', 'Patching', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incidents
+For over a decade, Nepal government websites (`.gov.np`) have been subjected to routine defacements. In distinct waves (notably 2017 and 2020), hacking groups like "Paradox Cyber Ghost" or "OpNepal" (and foreign actors) have replaced homepage content with political messages or simply claimed the site for "bragging rights."
+
+Victims have included the **Department of Passports**, **Ministry of Defense**, **Department of Urban Development**, and dozens of others.
+
+## Technical Analysis
+While these attacks look dramatic, they are often technically unsophisticated. They typically rely on:
+
+### 1. Unpatched CMS Vulnerabilities
+Many government sites run on outdated versions of Drupal, Joomla, or WordPress. Attackers use automated scanners to find known exploits (CVEs) for these old versions and inject their own `index.html`.
+
+### 2. Shared Hosting Security
+Many ministries share the same physical web server. If permissions are not properly configured (e.g., `chmod 777` on web roots), compromising one insecure site allows the attacker to traverse the directory structure and deface neighboring sites.
+
+### 3. Weak Admin Credentials
+Default credentials (admin/admin123) or rigid passwords remain a primary entry point on admin login pages which are often exposed to the public internet.
+
+## Why It Matters
+While defacement rarely results in deep data theft, it attacks the **Integrity** and **Reputation** of the state. It signals to the world that the government cannot protect its own digital front door, inviting more sophisticated actors to look for deeper vulnerabilities.
+
+## Key Defenses
+1.  **Patch Management**: Automate CMS and plugin updates.
+2.  **Hide the Admin Panel**: Restrict access to `/wp-admin` or `/admin` to internal government IP ranges (VPN) only.
+3.  **File Integrity Monitoring**: A script should check if the `index.php` or `index.html` file changes and instantly revert it if unauthorized.
+
+## References
+
+The Himalayan Times. (2017). *Govt websites hacked*. [Online]. Available at: [https://thehimalayantimes.com/kathmandu/govt-websites-hacked](https://thehimalayantimes.com/kathmandu/govt-websites-hacked) [Accessed 11 February 2025].
+
+The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 11 February 2025].

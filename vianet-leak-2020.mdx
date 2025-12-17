@@ -1,0 +1,37 @@
+---
+title: 'Case Study: Vianet Communication Data Leak'
+date: '2020-04-05'
+tags: ['Case Study', 'API Security', 'Privacy', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+Barely a month after the Foodmandu breach, Vianet Communications, one of Nepal's largest ISPs, suffered a massive data leak affecting over **170,000 customers**. The breach was disclosed by a Twitter user who shared a sample of the data, which included emails, phone numbers, and subscription details.
+
+## Technical Analysis
+The vulnerability was traced back to an insecure API endpoint used for their self-service customer portal.
+
+### The Vulnerability: BOLA (Broken Object Level Authorization)
+The API endpoint designed to fetch customer usage stats likely accepted a customer ID as a parameter but failed to validate if the requester had the rights to view that specific ID.
+
+This is a textbook example of **Broken Object Level Authorization (BOLA)**, also known as IDOR. In modern microservices and API-first architectures, BOLA is the #1 vulnerability on the **OWASP API Security Top 10**.
+
+```json
+// Conceptual Example of the Flaw
+GET /api/v1/customer/1001/profile
+// Returns 200 OK + Data for customer 1001, regardless of who asks.
+```
+
+## Remediation & Aftermath
+Vianet acknowledged the flaw and patched the system. This incident, combined with the Foodmandu breach, pressured the government to draft stricter cyber laws, although enforcement remains a challenge.
+
+## Key Takeaways
+1.  **API Gateways**: Use API Gateways to enforce authentication and authorization policies centrally.
+2.  **UUIDs over Integers**: Using sequential integer IDs (1, 2, 3...) makes enumeration easy. Use UUIDs (e.g., `a1b2-c3d4...`) to make guessing IDs mathematically impossible.
+3.  **Data Minimization**: APIs should only return the data strictly necessary for the UI, not the entire user row from the database.
+
+## References
+
+Kathmandu Post. (2020). *Data of more than 160,000 Vianet customers stolen*. [Online]. Available at: [https://kathmandupost.com/science-technology/2020/04/05/data-of-more-than-160-000-vianet-customers-stolen](https://kathmandupost.com/science-technology/2020/04/05/data-of-more-than-160-000-vianet-customers-stolen) [Accessed 11 February 2025].
+
+Onlinekhabar. (2020). *Vianet data breach: Hackers leak data of over 1.6 lakh customers*. [Online]. Available at: [https://english.onlinekhabar.com/vianet-data-breach-hackers-leak-data-of-over-1-6-lakh-customers.html](https://english.onlinekhabar.com/vianet-data-breach-hackers-leak-data-of-over-1-6-lakh-customers.html) [Accessed 11 February 2025].

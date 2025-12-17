@@ -1,0 +1,36 @@
+---
+title: 'Analysis: CCMC & The Covid-19 Data Privacy Gap'
+date: '2020-09-15'
+tags: ['Case Study', 'Privacy', 'Health Data', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Context
+During the COVID-19 pandemic, the **Covid-19 Crisis Management Centre (CCMC)** mandated that travelers and citizens fill out online forms to track health status and movement. This resulted in the massive collection of Personally Identifiable Information (PII), including health data, citizenship numbers, and travel history.
+
+## The Incident
+Security researchers identified that the CCMC portal had critical security lapses. In some iterations, it was possible to view other people's form submissions simply by manipulating the URL parameters (IDOR) or via insecure API endpoints.
+
+## Technical Analysis
+### 1. Insecure Direct Object References (IDOR)
+Similar to the Foodmandu/Vianet cases, the forms were often retrievable by sequential IDs.
+
+### 2. Lack of Encryption at Rest
+It raised questions about how this sensitive health data was stored. Was it encrypted in the database? Who had access to it?
+
+### 3. Data Retention Policy
+There was no clear policy on *when* this data would be deleted despite it being collected for a temporary emergency.
+
+## Impact
+While a mass "dump" wasn't publicly advertised on the dark web, the vulnerability exposed millions of Nepali citizens to potential privacy violations. It highlighted the lack of a **Data Protection Act** in Nepal.
+
+## Key Lessons
+1.  **Privacy by Design**: Security cannot be an afterthought, especially for health data.
+2.  **Compliance**: Health data requires higher standards (like HIPAA in the US). Nepal needs specific legislation for this.
+3.  **Ephemeral Data**: Emergency data should have a hard deletion schedule (e.g., auto-delete after 30 days).
+
+## References
+
+Nepali Times. (2020). *Who is guarding our personal data?*. [Online]. Available at: [https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data](https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data) [Accessed 11 February 2025].
+
+The Kathmandu Post. (2020). *With no data protection law, privacy concerns grow as government collects personal details*. [Online]. Available at: [https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details](https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details) [Accessed 11 February 2025].

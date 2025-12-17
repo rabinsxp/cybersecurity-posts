@@ -1,0 +1,37 @@
+---
+title: 'Case Study: The Foodmandu Data Breach of 2020'
+date: '2020-03-08'
+tags: ['Case Study', 'Web Security', 'IDOR', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+In March 2020, Foodmandu, Nepal's leading food delivery service, fell victim to a significant data breach. A hacker, using the Twitter handle "Mr. Mugger," claimed responsibility for dumping the personal details of approximately **50,000 customers**.
+
+The dumped data included:
+*   Full Names
+*   Email Addresses
+*   Phone Numbers
+*   Delivery Addresses
+
+## Technical Analysis
+While the full post-mortem was never publicly released in granular detail, security researchers analysis points to a classic **Insecure Direct Object Reference (IDOR)** or a generic SQL Injection vulnerability in their web API.
+
+### The Attack Vector
+The attacker likely identified an endpoint that retrieved user details based on a sequential ID (e.g., `/api/user/12345`). By iterating through these IDs (Enumeration), the attacker could scrape the database without authentication checks on whether the requestor owned that data.
+
+This highlights a critical failure in **Broken Access Control** (OWASP Top 10 A01).
+
+## Impact
+The immediate impact was a loss of trust. For users, the exposure of phone numbers and physical addresses created a risk of targeted phishing (smishing) and potential harassment. For Foodmandu, it served as a wake-up call to the startup ecosystem in Nepal that "security through obscurity" is not a strategy.
+
+## Lessons Learned
+1.  **Rate Limiting**: Simple rate limiting on API endpoints could have flagged or blocked the rapid enumeration of 50,000 records.
+2.  **Access Control**: Ensure that `user_id` parameters in API calls are checked against the currently logged-in user's session.
+3.  **VAPT**: Regular Vulnerability Assessment and Penetration Testing would likely have caught such a basic enumeration flaw.
+
+## References
+
+Kathmandu Post. (2020). *50,000 Foodmandu users’ personal details breached*. [Online]. Available at: [https://kathmandupost.com/science-technology/2020/03/08/50-000-foodmandu-users-personal-details-breached](https://kathmandupost.com/science-technology/2020/03/08/50-000-foodmandu-users-personal-details-breached) [Accessed 11 February 2025].
+
+The Himalayan Times. (2020). *Foodmandu’s data breach implies shallow waters of cyber security in Nepal*. [Online]. Available at: [https://thehimalayantimes.com/science-technology/foodmandus-data-breach-implies-shallow-waters-of-cyber-security-in-nepal](https://thehimalayantimes.com/science-technology/foodmandus-data-breach-implies-shallow-waters-of-cyber-security-in-nepal) [Accessed 11 February 2025].
