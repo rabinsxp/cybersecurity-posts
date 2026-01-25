@@ -6,28 +6,28 @@ authors: ['Rabins Sharma Lamichhane']
 ---
 
 ## The Incident
-On January 28, 2023, Nepal witnessed a crippling cyberattack on its **Government Integrated Data Centre (GIDC)**. The attack took down hundreds of government websites, but most critically, it crashed the immigration server at **Tribhuvan International Airport (TIA)**.
+January 28, 2023. The entire **Government Integrated Data Centre (GIDC)** went dark. A massive cyberattack took down hundreds of government sites. But the real chaos was at **Tribhuvan International Airport (TIA)**.
 
-For hours, international flights were grounded, and passengers were stranded because immigration officials could not process visas or entry logs digitally.
+The immigration server crashed. International flights were grounded. Passengers were stuck in limbo because officers physically couldn't check visas or process entry logs.
 
-## Technical Analysis
-The attack was identified as a **Distributed Denial of Service (DDoS)** attack.
+## What Happened?
+It wasn't a sophisticated hack; it was a brute force **Distributed Denial of Service (DDoS)**.
 
 ### The Mechanism
-Attackers flooded the GIDC's bandwidth with an overwhelming volume of traffic, saturating the "pipe." The GIDC, at the time, lacked sufficient upstream bandwidth filtering or a dedicated **CDN (Content Delivery Network)** scrubbing service closer to the edge.
+Attackers flooded the GIDC's connection with junk traffic. The GIDC's "pipe" got completely saturated. At the time, there was no robust upstream filtering or a cloud-based **Scrubbing Centre** to absorb the hit.
 
-When the central gateway at GIDC was choked, every service hosted behind it—from the Prime Minister's portal to the Airport's immigration database—went offline. This reveals a "Single Point of Failure" architecture.
+Because everything—from the Prime Minister's blog to the Airport's critical immigration database—sat behind the same choked gateway, *everything* went down. This is the definition of a "Single Point of Failure."
 
 ## Why It Mattered
-This wasn't just a website defacement; it was a denial of critical national infrastructure. It highlighted the fragility of Nepal's digital sovereignty.
+This was more than an inconvenience. It was a national embarrassment and a security risk. It showed the world that Nepal's digital border could be closed by a botnet.
 
-## Lessons for Enterprise
-1.  **DDoS Mitigation is Mandatory**: For critical infrastructure, ISP-level filtering is not enough. Dedicated scrubbing services (like Cloudflare Magic Transit or Akamai Prolexic) are required.
-2.  **Decouple Critical Systems**: The airport's immigration system should not share the exact same ingress pipe as public-facing static websites. Critical systems need dedicated, redundant connectivity.
-3.  **Failover Drills**: Physical redundant links existed but likely failed to switch over seamlessly under load. Regular drill testing is essential.
+## The Takeaway
+1.  **DDoS Mitigation is Mandatory**: You can't run critical infrastructure on a standard ISP line. You need dedicated scrubbing (like Cloudflare Magic Transit or Akamai).
+2.  **Decouple Systems**: Why does the airport immigration system share bandwidth with public websites? Critical systems need their own dedicated, redundant lines.
+3.  **Failover Drills**: We had backup links, but they didn't work when we needed them. If you don't test your failover processing under load, you don't actually have failover.
 
 ## References
 
-The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites, disrupt international travel*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 11 February 2025].
+The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites, disrupt international travel*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 30 January 2023].
 
-Onlinekhabar. (2023). *Government websites down: Officials suspect foreign cyber attack*. [Online]. Available at: [https://english.onlinekhabar.com/government-websites-down-cyber-attack.html](https://english.onlinekhabar.com/government-websites-down-cyber-attack.html) [Accessed 11 February 2025].
+Onlinekhabar. (2023). *Government websites down: Officials suspect foreign cyber attack*. [Online]. Available at: [https://english.onlinekhabar.com/government-websites-down-cyber-attack.html](https://english.onlinekhabar.com/government-websites-down-cyber-attack.html) [Accessed 30 January 2023].

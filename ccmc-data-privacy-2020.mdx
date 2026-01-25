@@ -6,31 +6,31 @@ authors: ['Rabins Sharma Lamichhane']
 ---
 
 ## The Context
-During the COVID-19 pandemic, the **Covid-19 Crisis Management Centre (CCMC)** mandated that travelers and citizens fill out online forms to track health status and movement. This resulted in the massive collection of Personally Identifiable Information (PII), including health data, citizenship numbers, and travel history.
+During the chaos of the COVID-19 pandemic, the **Covid-19 Crisis Management Centre (CCMC)** rolled out mandatory online forms for travelers. The goal was simple: track health status. The result? A massive aggregation of sensitive personal data—health history, citizenship numbers, and travel logs—collected in haste.
 
 ## The Incident
-Security researchers identified that the CCMC portal had critical security lapses. In some iterations, it was possible to view other people's form submissions simply by manipulating the URL parameters (IDOR) or via insecure API endpoints.
+It didn't take long for security researchers to notice something alarming. The CCMC portal had gaping security holes. In one iteration, it was possible to view other people's submissions just by tweaking the URL parameters or hitting insecure API endpoints. This wasn't a complex hack; it was a fundamental oversight.
 
 ## Technical Analysis
 ### 1. Insecure Direct Object References (IDOR)
-Similar to the Foodmandu/Vianet cases, the forms were often retrievable by sequential IDs.
+Much like other major breaches in Nepal, this system suffered from IDOR. If my form ID was `1001`, changing it to `1002` would often reveal someone else's data.
 
-### 2. Lack of Encryption at Rest
-It raised questions about how this sensitive health data was stored. Was it encrypted in the database? Who had access to it?
+### 2. Encryption? What Encryption?
+The breach raised serious questions about data at rest. There was little evidence that this highly sensitive health data was encrypted in the backend, meaning any database compromise would be catastrophic.
 
-### 3. Data Retention Policy
-There was no clear policy on *when* this data would be deleted despite it being collected for a temporary emergency.
+### 3. Data Retention Void
+We saw data being collected for an emergency, but with no "self-destruct" date. Without a clear retention policy, temporary emergency data risks becoming a permanent liability.
 
-## Impact
-While a mass "dump" wasn't publicly advertised on the dark web, the vulnerability exposed millions of Nepali citizens to potential privacy violations. It highlighted the lack of a **Data Protection Act** in Nepal.
+## The Fallout
+While we didn't see a "Marketplace Dump" on the dark web, the exposure risk was massive. Millions of citizens entrust the government with their health data, and this breach highlighted a glaring gap: Nepal effectively has no **Data Protection Act** to hold anyone accountable.
 
-## Key Lessons
-1.  **Privacy by Design**: Security cannot be an afterthought, especially for health data.
-2.  **Compliance**: Health data requires higher standards (like HIPAA in the US). Nepal needs specific legislation for this.
-3.  **Ephemeral Data**: Emergency data should have a hard deletion schedule (e.g., auto-delete after 30 days).
+## The Lessons
+1.  **Privacy by Design**: You can't bolt on security after you build the app—especially for health data.
+2.  **Compliance Standards**: We need HIPAA-level standards in Nepal. "It works" is not a valid security certification.
+3.  **Ephemeral Data**: Emergency systems should auto-delete data after 30 days. Why keep it forever?
 
 ## References
 
-Nepali Times. (2020). *Who is guarding our personal data?*. [Online]. Available at: [https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data](https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data) [Accessed 11 February 2025].
+Nepali Times. (2020). *Who is guarding our personal data?*. [Online]. Available at: [https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data](https://www.nepalitimes.com/banner/who-is-guarding-our-personal-data) [Accessed 15 September 2020].
 
-The Kathmandu Post. (2020). *With no data protection law, privacy concerns grow as government collects personal details*. [Online]. Available at: [https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details](https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details) [Accessed 11 February 2025].
+The Kathmandu Post. (2020). *With no data protection law, privacy concerns grow as government collects personal details*. [Online]. Available at: [https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details](https://kathmandupost.com/national/2020/09/15/with-no-data-protection-law-privacy-concerns-grow-as-government-collects-personal-details) [Accessed 15 September 2020].

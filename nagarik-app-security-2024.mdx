@@ -1,0 +1,54 @@
+---
+title: 'Nagarik App Security Concerns: A Deep Dive'
+date: '2024-05-15'
+tags: ['Analysis', 'Government', 'Mobile App', 'Privacy', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## Overview
+
+The Nagarik App—Nepal government's flagship digital identity platform—has been positioned as the gateway to e-governance. With over 3 million registered users as of 2024, it stores citizenship data, driving licenses, and vehicle registrations. But how secure is it?
+
+## Security Observations
+
+### 1. Certificate Pinning
+Positive: The app implements SSL certificate pinning, making man-in-the-middle attacks significantly harder on standard networks.
+
+### 2. Root Detection
+The app includes basic root/jailbreak detection. However, researchers have noted that these checks can be bypassed with common tools like Frida and Objection within minutes.
+
+### 3. Sensitive Data Storage
+Concerning: Analysis of the app's local storage reveals that some sensitive data is stored in SharedPreferences (Android) without encryption. While protected by Android's sandboxing, this is not best practice for national ID data.
+
+### 4. Session Management
+Sessions appear to have long expiry times (7+ days). This increases risk if a device is compromised.
+
+## Data Transmission
+
+API calls use HTTPS with TLS 1.2+, which is acceptable. However, the absence of certificate transparency logging makes it harder to detect rogue certificates.
+
+## Privacy Considerations
+
+The app's privacy policy is vague on:
+- Data retention periods
+- Third-party data sharing
+- Right to deletion
+
+Given that the app is mandatory for accessing many government services, citizens have limited ability to opt out.
+
+## Recommendations
+
+1. **Encrypt Local Storage**: Use Android Keystore / iOS Keychain for sensitive data.
+2. **Shorter Sessions**: Implement 24-hour session expiry with re-authentication.
+3. **Transparency Reports**: Publish quarterly reports on data access requests.
+4. **Bug Bounty Program**: Engage the security community constructively.
+
+## The Bigger Picture
+
+The Nagarik App represents Nepal's digital future. Getting its security right isn't optional—it's a matter of national security. With millions of citizens' data at stake, continuous security audits should be mandated by law.
+
+## References
+
+Government of Nepal. (2024). *Nagarik App Official Portal*. [Online]. Available at: [https://nagarikapp.gov.np](https://nagarikapp.gov.np) [Accessed 15 May 2024].
+
+OWASP. (2023). *Mobile Application Security Verification Standard*. [Online]. Available at: [https://owasp.org/www-project-mobile-app-security/](https://owasp.org/www-project-mobile-app-security/) [Accessed 15 May 2024].

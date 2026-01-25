@@ -5,33 +5,33 @@ tags: ['Case Study', 'Defacement', 'Patching', 'Nepal']
 authors: ['Rabins Sharma Lamichhane']
 ---
 
-## The Incidents
-For over a decade, Nepal government websites (`.gov.np`) have been subjected to routine defacements. In distinct waves (notably 2017 and 2020), hacking groups like "Paradox Cyber Ghost" or "OpNepal" (and foreign actors) have replaced homepage content with political messages or simply claimed the site for "bragging rights."
+## The Patterns
+For over a decade, `.gov.np` domains have been a playground for script kiddies. In waves—most notably around 2017 and 2020—groups like "Paradox Cyber Ghost" or foreign "hacktivists" have mass-defaced government homepages.
 
-Victims have included the **Department of Passports**, **Ministry of Defense**, **Department of Urban Development**, and dozens of others.
+Victims range from the **Ministry of Defense** to the **Department of Passports**. Usually, the homepage is swapped with a black background, green text, and a political manifesto or a simple "Hacked by X."
 
-## Technical Analysis
-While these attacks look dramatic, they are often technically unsophisticated. They typically rely on:
+## How They Do It?
+Despite the dramatic headlines, these aren't "Mission Impossible" hacks. They are mostly opportunistic, automated attacks.
 
-### 1. Unpatched CMS Vulnerabilities
-Many government sites run on outdated versions of Drupal, Joomla, or WordPress. Attackers use automated scanners to find known exploits (CVEs) for these old versions and inject their own `index.html`.
+### 1. The Patch Gap
+A surprising number of government portals run on ancient versions of Drupal, Joomla, or WordPress. Attackers don't even target the site specifically; they run scanners looking for broad CVEs (Known Vulnerabilities) across an IP range. If you're running Drupal 6 in 2023, you're not waiting to be hacked—you're inviting it.
 
-### 2. Shared Hosting Security
-Many ministries share the same physical web server. If permissions are not properly configured (e.g., `chmod 777` on web roots), compromising one insecure site allows the attacker to traverse the directory structure and deface neighboring sites.
+### 2. The "Neighbor" Problem
+Many ministries share the same physical web server. If one insecure site sits next to a secure one on a shared server with bad permissions (like `chmod 777` on web roots), the attacker gets into the weak one and just "hops over" to deface the others.
 
-### 3. Weak Admin Credentials
-Default credentials (admin/admin123) or rigid passwords remain a primary entry point on admin login pages which are often exposed to the public internet.
+### 3. admin / admin123
+You'd think we're past this, but weak credentials remain a massive entry point. Admin panels are often left exposed to the public internet without even a basic VPN requirement.
 
-## Why It Matters
-While defacement rarely results in deep data theft, it attacks the **Integrity** and **Reputation** of the state. It signals to the world that the government cannot protect its own digital front door, inviting more sophisticated actors to look for deeper vulnerabilities.
+## Why Should We Care?
+"It's just the homepage," some say. But defacement is an attack on **Reputation** and **Integrity**. If the government can't secure its digital front door, citizens lose faith in its ability to secure their tax records, ID data, and land deeds.
 
-## Key Defenses
-1.  **Patch Management**: Automate CMS and plugin updates.
-2.  **Hide the Admin Panel**: Restrict access to `/wp-admin` or `/admin` to internal government IP ranges (VPN) only.
-3.  **File Integrity Monitoring**: A script should check if the `index.php` or `index.html` file changes and instantly revert it if unauthorized.
+## The Fixes
+1.  **Automate Patching**: If it can't update itself, it shouldn't be online.
+2.  **Hide the Door**: The `/wp-admin` or `/admin` page should not be visible to the world. Lock it down to a government VPN IP range.
+3.  **File Integrity Monitoring**: A simple script should watch `index.php`. If it changes, change it back instantly and alert the admin. Automate the defense.
 
 ## References
 
-The Himalayan Times. (2017). *Govt websites hacked*. [Online]. Available at: [https://thehimalayantimes.com/kathmandu/govt-websites-hacked](https://thehimalayantimes.com/kathmandu/govt-websites-hacked) [Accessed 11 February 2025].
+The Himalayan Times. (2017). *Govt websites hacked*. [Online]. Available at: [https://thehimalayantimes.com/kathmandu/govt-websites-hacked](https://thehimalayantimes.com/kathmandu/govt-websites-hacked) [Accessed 20 June 2017].
 
-The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 11 February 2025].
+The Kathmandu Post. (2023). *Cyberattacks shut down hundreds of government websites*. [Online]. Available at: [https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel](https://kathmandupost.com/national/2023/01/29/cyberattacks-shut-down-hundreds-of-government-websites-disrupt-international-travel) [Accessed 20 June 2017].

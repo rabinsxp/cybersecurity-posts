@@ -1,0 +1,49 @@
+---
+title: 'Nepal Telecom SIM Swap Fraud Wave: 2023 Analysis'
+date: '2023-08-20'
+tags: ['Case Study', 'Telecom', 'Fraud', 'SIM Swap', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Incident
+
+Between June and August 2023, Nepal Police's Cyber Bureau recorded over 50 complaints of SIM swap fraud targeting Nepal Telecom (NTC) subscribers. Victims reported losing access to their mobile numbers, followed by unauthorized access to their bank accounts and digital wallets.
+
+## How the Attack Works
+
+### 1. Social Engineering Phase
+Attackers first gather victim information through:
+- Fake call center calls claiming to be NTC support
+- Data harvested from previous breaches (e.g., Vianet, Foodmandu)
+- Social media reconnaissance
+
+### 2. The Swap
+Armed with citizenship numbers and personal details, attackers visit NTC service centers with forged documents to request a SIM replacement, claiming the original was "lost."
+
+### 3. Account Takeover
+Once the attacker's SIM is activated, the victim's SIM goes dead. The attacker then:
+- Intercepts OTPs sent to the number
+- Resets passwords for banking apps
+- Drains connected wallets (eSewa, Khalti, IME Pay)
+
+## Victims and Losses
+
+Reported losses ranged from NPR 50,000 to NPR 15 lakh per victim. In one documented case, a Kathmandu businessman lost NPR 12 lakh from his bank account within 30 minutes of the SIM swap.
+
+## Systemic Failures
+
+1. **Weak Verification**: NTC's SIM replacement process relied primarily on citizenship documents—easily forged in Nepal.
+2. **No Dual Notification**: Unlike global standards, NTC did not send email or app notifications when SIM swaps were requested.
+3. **Bank Reliance on SMS OTP**: Most Nepali banks still use SMS as their primary 2FA method.
+
+## Recommendations
+
+- **For Users**: Enable app-based 2FA (TOTP) wherever possible. Register for bank email alerts.
+- **For Telcos**: Implement biometric verification and mandatory 24-hour cooling periods for SIM swaps.
+- **For Banks**: Move beyond SMS OTP to push notifications or hardware tokens.
+
+## References
+
+The Himalayan Times. (2023). *Cyber Bureau receives over 50 SIM swap fraud complaints*. [Online]. Available at: [https://thehimalayantimes.com](https://thehimalayantimes.com) [Accessed 20 August 2023].
+
+Nepal Police Cyber Bureau. (2023). *Public Advisory on SIM Swap Fraud*. [Online]. Available at: [https://www.nepalpolice.gov.np](https://www.nepalpolice.gov.np) [Accessed 20 August 2023].

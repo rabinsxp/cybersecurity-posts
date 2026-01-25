@@ -1,0 +1,65 @@
+---
+title: 'NCIT Phishing Campaign Targeting Nepali Students'
+date: '2024-01-08'
+tags: ['Case Study', 'Phishing', 'Education', 'Awareness', 'Nepal']
+authors: ['Rabins Sharma Lamichhane']
+---
+
+## The Campaign
+
+In late 2023 and early 2024, a sophisticated phishing campaign targeted students at NCIT (Nepal College of Information Technology) and affiliated institutions. The attackers impersonated the college examination portal to harvest student credentials.
+
+## Attack Vector
+
+### 1. Email Lure
+Students received emails appearing to be from `exam@ncit.edu.np` with subject lines like:
+- "URGENT: Exam Results Published - Verify Now"
+- "Your Exam Registration is Pending"
+
+### 2. Fake Portal
+The phishing link led to `nclt-edu.np` (note the 'l' instead of 'i')—a near-perfect clone of the legitimate portal.
+
+### 3. Credential Harvesting
+After victims entered their credentials, they were redirected to the real NCIT website, making the attack nearly invisible.
+
+## Scale and Impact
+
+Estimates suggest 500+ students may have entered credentials before the campaign was identified. Attackers used harvested credentials to:
+- Access student email accounts
+- Request password resets for connected services
+- In some cases, access linked eSewa accounts
+
+## Technical Indicators
+
+| Indicator | Value |
+|-----------|-------|
+| Phishing Domain | nclt-edu.np |
+| Hosting | Bulletproof hosting (Malaysia) |
+| SSL Certificate | Let's Encrypt (free, easy to obtain) |
+| Email Sender | Spoofed header, actual origin was Gmail |
+
+## Who Was Behind It?
+
+The sophistication level suggests either:
+- A local threat actor with inside knowledge of academic schedules
+- An international group using Nepal-specific social engineering
+
+## Lessons for Institutions
+
+1. **SPF/DKIM/DMARC**: Email authentication would have flagged the spoofed sender.
+2. **Domain Monitoring**: Institutions should monitor for typosquatting domains.
+3. **Security Training**: Regular phishing simulations for students and staff.
+4. **2FA Enforcement**: Mandatory two-factor for all academic portals.
+
+## What Students Should Do
+
+- Always check the URL before entering credentials
+- Enable 2FA on all accounts
+- Report suspicious emails to IT departments
+- Never trust "URGENT" emails without verification
+
+## References
+
+NCIT Administration. (2024). *Security Advisory: Phishing Alert*. [Internal Communication].
+
+Cyber Bureau Nepal. (2024). *Phishing Attack Trends Report Q1 2024*. [Online]. Available at: [https://www.nepalpolice.gov.np/cyber](https://www.nepalpolice.gov.np/cyber) [Accessed 8 January 2024].

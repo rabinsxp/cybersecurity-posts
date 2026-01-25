@@ -6,29 +6,30 @@ authors: ['Rabins Sharma Lamichhane']
 ---
 
 ## The Incident
-During the Tihar festival in October 2017, undetected hackers initiated fraudulent transfers totaling approximately **NPR 460 Million (USD 4.4 Million)** from NIC Asia Bank. The attackers exploited the **SWIFT (Society for Worldwide Interbank Financial Telecommunication)** system, the backbone of international money transfers.
+Tihar 2017. While Kathmandu was lit up for the festival of lights, hackers were busy lighting up the SWIFT network at NIC Asia Bank. In a brazen heist, they attempted to transfer **NPR 460 Million (USD 4.4 Million)** to accounts across six countries, including the US, UK, and Japan.
 
-Unlike the NEPS heist which targeted ATMs, this attack targeted the core inter-bank messaging system to move money to accounts in six different countries, including the US, UK, Japan, and Singapore.
+This was big. It wasn't an ATM hack; it was an attack on **SWIFT**—the global backbone of inter-bank money movement.
 
-## Technical Analysis
+## Understanding the Attack
+This wasn't a "smash and grab." It was a patient, calculated insider threat scenario (whether malicious insider or compromised credentials).
 
-### The Attack Vector: Insider Threat or Phishing?
-While the granular forensic report remains confidential, the *modus operandi* mirrored the infamous **Bangladesh Bank Heist (2016)**.
-1.  **Compromise**: Attackers likely compromised a computer within the bank's SWIFT network, possibly via spear-phishing or a compromised insider device.
-2.  **Lateral Movement**: They gained access to valid SWIFT operator credentials.
-3.  **Transaction Initiation**: During a public holiday (Tihar), when monitoring is typically lax, they sent fraudulent payment instructions (MT103 messages).
-4.  **Covering Tracks**: Malware was likely used to delete transfer logs or manipulate printed confirmation reports to hide the theft until the money had cleared.
+### The Methodology
+The attack bore a striking resemblance to the infamous **2016 Bangladesh Bank Heist**.
+1.  **The Entry**: Attackers compromised a PC on the SWIFT network. Rumors suggest it might have been a machine used for general email/browsing—a massive security sin.
+2.  **The Credentials**: They didn't break the encryption; they stole the keys. They obtained valid operator credentials to initiate transfers.
+3.  **Timing**: They waited for Tihar. Public holidays are the "Golden Hour" for attackers because human monitoring is at its lowest.
+4.  **Cover Up**: Malware was used to wipe logs and potentially alter printed transaction confirmations, buying them time before the reconciliation team noticed the gap.
 
 ## The Response
-The theft was detected relatively quickly. NIC Asia Bank, with the help of Nepal Rastra Bank and central banks in the destination countries, managed to freeze and recover most of the funds. However, the reputational damage was vital.
+Fortunately, the recovery was swift (pun intended). NIC Asia, coordinating with Nepal Rastra Bank and international partners, managed to freeze and claw back most of the funds before they could be cashed out. But the near-miss left the banking sector shaken.
 
-## Key Lessons
-1.  **Segregation of Duties**: No single person (or compromised credential) should be able to initiate *and* approve a SWIFT transaction. Dual-control is mandatory.
-2.  **Network Isolation**: Research showed the SWIFT terminal might have been used for general browsing or email, which is a critical violation. SWIFT terminals must be completely isolated.
-3.  **Holiday Monitoring**: Attackers love holidays. Automated anomaly detection systems must operate 24/7/365, independent of human staff.
+## The Lessons
+1.  **The Four-Eyes Principle**: No single human should be able to move millions. A transaction initiated by User A must always be physically approved by User B on a separate device.
+2.  **Air Gapping**: A SWIFT terminal is for SWIFT. Period. It should not have access to Google, Facebook, or Corporate Email. If it can browse the web, it can be phished.
+3.  **Automated Watchdogs**: Holidays are for humans, not security centers. Anomaly detection systems don't take Tihar off. They should have flagged a massive cross-border surge instantly.
 
 ## References
 
-The Kathmandu Post. (2017). *Central bank confirms cyber heist attempt at NIC Asia*. [Online]. Available at: [https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia](https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia) [Accessed 11 February 2025].
+The Kathmandu Post. (2017). *Central bank confirms cyber heist attempt at NIC Asia*. [Online]. Available at: [https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia](https://kathmandupost.com/money/2017/10/24/central-bank-confirms-cyber-heist-attempt-at-nic-asia) [Accessed 25 October 2017].
 
-Security Affairs. (2017). *Hackers attempt to steal money from Nepal’s NIC Asia Bank via SWIFT system*. [Online]. Available at: [https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html](https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html) [Accessed 11 February 2025].
+Security Affairs. (2017). *Hackers attempt to steal money from Nepal’s NIC Asia Bank via SWIFT system*. [Online]. Available at: [https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html](https://securityaffairs.com/64687/cyber-crime/nic-asia-bank-swift-hack.html) [Accessed 25 October 2017].

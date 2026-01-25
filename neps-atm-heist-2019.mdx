@@ -5,32 +5,35 @@ tags: ['Case Study', 'Banking', 'Malware', 'Nepal']
 authors: ['Rabins Sharma Lamichhane']
 ---
 
-## The Incident
-In one of the most sophisticated financial crimes in Nepal's history, Chinese threat actors managed to withdraw over **NPR 1.89 Crore (approx $168,000)** from ATMs across Kathmandu in a coordinated weekend heist. They targeted the **Nepal Electronic Payment Systems (NEPS)**, a shared switch used by multiple banks.
+## The Heist
+It plays out like a movie script. Over a single weekend in September 2019, Chinese threat actors coordinated a massive cash-out. They didn't blow up ATMs; they quietly withdrew over **NPR 1.89 Crore** from machines across Kathmandu.
 
-## Technical Analysis
-This was not a brute-force attack on ATM machines (like jackpitting). It was a logical attack on the payment switch infrastructure.
+The victim wasn't a single bank—it was the **Nepal Electronic Payment Systems (NEPS)**, the centralized switch that connects 17 commercial banks.
 
-### The Attack Chain
-1.  **Initial Access**: Attackers likely gained a foothold in the NEPS network via phishing or an exposed service weeks prior to the heist.
-2.  **Lateral Movement**: They moved through the network to locate the Payment Switch Application servers.
-3.  **Malware Injection**: The attackers installed custom malware on the transaction switch.
-4.  **The "Proxy" Attack**:
-    *   When the mules inserted cards into the ATMs, the request went to the NEPS switch.
-    *   Typically, the switch forwards this to the Core Banking System (CBS) to check the balance.
-    *   The malware **intercepted** this request. Instead of asking the bank, the malware replied to the ATM: *"Approved. Dispense Cash."*
-    *   The bank's ledger was never touched during the transaction, which is why no alarms triggered immediately.
+## Understanding the Attack
+This wasn't simple card skimming. This was a sophisticated "Logical Attack."
 
-## The Aftermath
-The heist was discovered only because a bank employee noticed money running out of ATMs unusually fast on a Saturday. Authorities arrested several money mules, but the architects of the malware remain at large.
+### The Kill Chain
+1.  **The Entry**: Weeks before the heist, attackers likely phished an employee or found an exposed server to plant a foothold in the corporate network.
+2.  **The Pivot**: They moved laterally until they found the prize: the Payment Switch Application servers.
+3.  **The Malware**: They installed a custom ISO8583 message interceptor.
+4.  **The "Man-in-the-Middle"**:
+    *   Mules at the ATM inserts a card.
+    *   ATM asks the Switch: "Can I dispense 20k?"
+    *   The Malware intercepts the request *before* it gets to the Core Banking System (CBS).
+    *   Malware replies: "Yes, Dispense."
+    *   The bank's legitimate ledger never even sees the transaction. The money vanishes, but the account balance stays the same.
 
-## Key Defenses
-1.  **Network Segmentation**: The payment switch should be in a high-security zone, air-gapped from the corporate email network to prevent phishing-based entry.
-2.  **File Integrity Monitoring (FIM)**: Changes to critical binaries on the switch server should have triggered an immediate alert.
-3.  **Behavioral Analytics**: A surge in cross-border or high-frequency transactions during off-hours (Saturday/Holiday) should trigger automated blocks.
+## The Discovery
+The only reason they got caught? A bank employee noticed their "Cash in Transit" vault accounts were emptying out way too fast for a Saturday. If they had gone slower, they might have cleaned out the entire vault.
+
+## What Needs to Change
+1.  **Air Gaps**: Your Payment Switch should not be reachable from the same network where HR checks their email. Segmentation is non-negotiable.
+2.  **FIM Alerts**: Someone installed malware on the most critical server in the bank. Using File Integrity Monitoring would have alerted the SOC the second a new binary appeared in the folder.
+3.  **Behavioral Friction**: Why is someone withdrawing the exact max limit from 60 different ATMs at 3 AM on a Saturday? Automated fraud detection rules need to block this, human or not.
 
 ## References
 
-The Kathmandu Post. (2019). *Police arrest 5 Chinese nationals for hacking bank data and stealing millions*. [Online]. Available at: [https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions](https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions) [Accessed 11 February 2025].
+The Kathmandu Post. (2019). *Police arrest 5 Chinese nationals for hacking bank data and stealing millions*. [Online]. Available at: [https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions](https://kathmandupost.com/national/2019/09/01/police-arrest-5-chinese-nationals-for-hacking-bank-data-and-stealing-millions) [Accessed 5 September 2019].
 
-Al Jazeera. (2019). *Nepal detains 122 Chinese for suspected cybercrime and bank fraud*. [Online]. Available at: [https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud](https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud) [Accessed 11 February 2025].
+Al Jazeera. (2019). *Nepal detains 122 Chinese for suspected cybercrime and bank fraud*. [Online]. Available at: [https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud](https://www.aljazeera.com/news/2019/12/24/nepal-detains-122-chinese-for-suspected-cybercrime-bank-fraud) [Accessed 5 September 2019].
