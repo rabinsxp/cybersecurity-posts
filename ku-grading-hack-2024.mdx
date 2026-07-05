@@ -1,0 +1,19 @@
+---
+title: "December 2024: Kathmandu University Grading System Hack"
+date: "2024-12-05T15:30:00Z"
+tags: ["Education", "Data Integrity", "Insider Threat"]
+authors: ["Rabins Lamichhane"]
+---
+
+## The Incident
+In late 2024, Kathmandu University's (KU) digital grading portal was compromised. Unlike typical external hacks, forensic analysis revealed that the breach utilized compromised faculty credentials. 
+
+The attackers gained administrative access to the central academic database and covertly altered the final grades of several dozen students just days before the official graduation lists were published. 
+
+## The Impact
+The manipulation of grades struck at the very core of the university's academic integrity. The discovery forced an immediate halt to the graduation processing, triggering a massive, manual audit of thousands of physical exam papers against the digital records to identify and revert the fraudulent changes.
+
+## Lessons Learned
+1. **Multi-Factor Authentication (MFA)**: Administrative access to critical databases must require strict MFA. A stolen password should never be enough to alter official academic records.
+2. **Immutable Audit Logs**: The database must employ append-only, immutable logging (potentially utilizing DLT/Blockchain concepts) so that any change to a grade is cryptographically recorded, timestamped, and cannot be deleted by an attacker to cover their tracks.
+3. **Role-Based Access Control (RBAC)**: Faculty should only have write-access to their specific courses during a narrow grading window, after which the records should be locked and require high-level authorization to amend.
